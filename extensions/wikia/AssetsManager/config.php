@@ -1505,19 +1505,19 @@ $config['wampage_js'] = array(
 
 /** WikiaSearch **/
 $config['wikiasearch_js_wikiamobile'] = array(
-    'type' => AssetsManager::TYPE_JS,
-    'skin' => 'wikiamobile',
-    'assets' => array(
-        '//extensions/wikia/Search/js/WikiaSearch.wikiamobile.js'
-    )
+	'type' => AssetsManager::TYPE_JS,
+	'skin' => 'wikiamobile',
+	'assets' => array(
+		'//extensions/wikia/Search/js/WikiaSearch.wikiamobile.js'
+	)
 );
 
 $config['wikiasearch_scss_wikiamobile'] = array(
-    'type' => AssetsManager::TYPE_SCSS,
-    'skin' => 'wikiamobile',
-    'assets' => array(
-        '//extensions/wikia/Search/css/WikiaSearch.wikiamobile.scss'
-    )
+	'type' => AssetsManager::TYPE_SCSS,
+	'skin' => 'wikiamobile',
+	'assets' => array(
+		'//extensions/wikia/Search/css/WikiaSearch.wikiamobile.scss'
+	)
 );
 
 /** Places **/
@@ -1648,6 +1648,14 @@ $config['analytics_gas_js'] = array(
 	]
 );
 
+$config['universal_analytics_js'] = array(
+	'type' => AssetsManager::TYPE_JS,
+	'skin' => [ 'wikiamobile', 'venus' ],
+	'assets' => [
+		'//extensions/wikia/AnalyticsEngine/js/universal_analytics.js'
+	]
+);
+
 $config['analytics_bluekai_js'] = array(
 	'type' => AssetsManager::TYPE_JS,
 	'skin' => ['wikiamobile' ],
@@ -1660,12 +1668,12 @@ $config['analytics_bluekai_js'] = array(
 
 /** WikiMap Extension **/
 $config['wiki_map_js'] = array(
-    'type' => AssetsManager::TYPE_JS,
-    'assets' => array(
-        '//extensions/wikia/hacks/WikiMap/js/d3.v2.js',
-        '//extensions/wikia/hacks/WikiMap/js/jquery.xcolor.js',
-        '//extensions/wikia/hacks/WikiMap/js/WikiMapIndexContent.js'
-    )
+	'type' => AssetsManager::TYPE_JS,
+	'assets' => array(
+		'//extensions/wikia/hacks/WikiMap/js/d3.v2.js',
+		'//extensions/wikia/hacks/WikiMap/js/jquery.xcolor.js',
+		'//extensions/wikia/hacks/WikiMap/js/WikiMapIndexContent.js'
+	)
 );
 
 /* Special:Leaderboard in AchievementsII extensions */
@@ -1862,10 +1870,10 @@ $config['touchstorm_scss'] = array(
 );
 
 $config['touchstorm_js'] = array(
-        'type' => AssetsManager::TYPE_JS,
-        'assets' => array(
-                '//extensions/wikia/TouchStorm/js/TouchStorm.js'
-        )
+		'type' => AssetsManager::TYPE_JS,
+		'assets' => array(
+				'//extensions/wikia/TouchStorm/js/TouchStorm.js'
+		)
 );
 
 $config['toc_js'] = array(
@@ -2049,12 +2057,12 @@ $config['monetization_module_js'] = array(
 );
 
 $config['monetization_module_top_script_js'] = array(
-    'type' => AssetsManager::TYPE_JS,
-    'skin' => [ 'oasis' ],
-    'assets' => [
-        '//extensions/wikia/MonetizationModule/scripts/MonetizationModuleTopScript.js',
+	'type' => AssetsManager::TYPE_JS,
+	'skin' => [ 'oasis' ],
+	'assets' => [
+		'//extensions/wikia/MonetizationModule/scripts/MonetizationModuleTopScript.js',
 
-    ]
+	]
 );
 
 /* extension/wikia/WikiaMaps */
