@@ -122,7 +122,7 @@
 				ga_action: trackAction,
 				ga_category: trackCategory,
 				label: trackLabel,
-				trackingMethod: 'ga'
+				trackingMethod: 'analytics'
 			});
 		},
 		trackMom = function (trackLabel, trackAction) {

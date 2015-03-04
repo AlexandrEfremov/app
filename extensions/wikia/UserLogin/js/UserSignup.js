@@ -50,7 +50,7 @@
 				action: Wikia.Tracker.ACTIONS.ERROR,
 				category: 'user-sign-up',
 				label: 'captcha-load-fail',
-				trackingMethod: 'both',
+				trackingMethod: 'analytics',
 				country: Wikia.geo.getCountryCode()
 			});
 		},

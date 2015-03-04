@@ -105,7 +105,7 @@ require(
 
 			// Track a view of the notification
 			var trackingParams = {
-				trackingMethod: 'ga',
+				trackingMethod: 'analytics',
 				category: 'wikia-in-your-lang',
 				action: tracker.ACTIONS.VIEW,
 				label: targetLanguage + '-notification-view',
@@ -130,7 +130,7 @@ require(
 		function onNotificationClosed() {
 			// Track closing of a notification
 			var trackingParams = {
-				trackingMethod: 'ga',
+				trackingMethod: 'analytics',
 				category: 'wikia-in-your-lang',
 				action: tracker.ACTIONS.CLOSE,
 				label: targetLanguage + '-notification-close',
@@ -145,7 +145,7 @@ require(
 		function onLinkClick() {
 			// Track a click on a notification link
 			var trackingParams = {
-				trackingMethod: 'ga',
+				trackingMethod: 'analytics',
 				category: 'wikia-in-your-lang',
 				action: tracker.ACTIONS.CLICK_LINK_TEXT,
 				label: targetLanguage + '-notification-link-click',

@@ -34,7 +34,7 @@ define('wikia.vet', ['wikia.videoBootstrap', 'jquery', 'wikia.window'], function
 	tracking = Wikia.Tracker.buildTrackingFunction(Wikia.trackEditorComponent, {
 		action: Wikia.Tracker.ACTIONS.CLICK,
 		category: 'vet',
-		trackingMethod: 'both'
+		trackingMethod: 'analytics'
 	});
 
 	// ajax call for 2nd screen (aka embed screen)
@@ -221,7 +221,7 @@ define('wikia.vet', ['wikia.videoBootstrap', 'jquery', 'wikia.window'], function
 				category: options.track.category || 'vet',
 				label: options.track.label || '',
 				value: options.track.value || null,
-				trackingMethod: options.track.method || 'both'
+				trackingMethod: options.track.method || 'analytics'
 			});
 		}
 
