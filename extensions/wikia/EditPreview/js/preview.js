@@ -121,13 +121,7 @@ define('wikia.preview', [
 		var iframe = $article.html(
 				'<div class="mobile-preview"><iframe  width="320" height="480"></iframe></div>'
 			).find('iframe')[0],
-			doc = iframe.document;
-
-		if (iframe.contentDocument) {
-			doc = iframe.contentDocument;
-		} else if (iframe.contentWindow) {
 			doc = iframe.contentWindow.document;
-		}
 
 		doc.open();
 		doc.writeln(data.html);
@@ -273,7 +267,7 @@ define('wikia.preview', [
 					name: $.htmlentities(msg('wikia-editor-preview-max-width'))
 				}, {
 					value: previewTypes.mobile.name,
-					name: $.htmlentities(msg('wikia-editor-preview-mobile-width'))
+					name: $.htmlentities(msg('wikia-editor-preview-mobile'))
 				}],
 				toolTipMessage: $.htmlentities(msg('wikia-editor-preview-type-tooltip'))
 			},
@@ -282,7 +276,7 @@ define('wikia.preview', [
 		if (window.wgEnableVenusArticle) {
 			params.options.push({
 				value: previewTypes.venus.name,
-				name: $.htmlentities(msg('wikia-editor-preview-venus-width'))
+				name: $.htmlentities(msg('wikia-editor-preview-venus'))
 			});
 		}
 
@@ -413,18 +407,13 @@ define('wikia.preview', [
 	 *
 	 * @param {string} type - type of the preview
 	 */
-
 	function switchPreview(type) {
 		var lastTypeName = currentTypeName;
 
 		currentTypeName = type;
 
-		//load again preview only if changing mobile <-> desktop
-		if (type === previewTypes.mobile.name ||
-			type === previewTypes.venus.name ||
-			lastTypeName === previewTypes.mobile.name ||
-			lastTypeName === previewTypes.venus.name
-		) {
+		//load again preview only if changing skins
+		if (previewTypes[currentTypeName].skin !== previewTypes[lastTypeName].skin) {
 			loadPreview(previewTypes[currentTypeName].name);
 		}
 
@@ -522,13 +511,11 @@ define('wikia.preview', [
 				mobile: {
 					name: 'mobile',
 					skin: 'wikiamobile',
-					type: 'full',
 					value: null
 				},
 				venus: {
 					name: 'venus',
 					skin: 'venus',
-					type: 'full',
 					value: 1024
 				}
 			};
