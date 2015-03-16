@@ -10,6 +10,7 @@ define('wikia.preview', [
 	'JSMessages',
 	'wikia.tracker',
 	'wikia.csspropshelper',
+	'wikia.iframeWriter',
 	'wikia.fluidlayout'
 ], function (
 	window,
@@ -20,6 +21,7 @@ define('wikia.preview', [
 	msg,
 	tracker,
 	cssPropHelper,
+	iframeWriter,
 	fluidlayout
 ) {
 	'use strict';
@@ -106,7 +108,7 @@ define('wikia.preview', [
 				template = response.mustache[0],
 				html = mustache.render(template, params);
 
-			content = html+content;
+			content = html + content;
 			$.showCustomModal(title, content, options);
 		});
 	}
@@ -118,14 +120,14 @@ define('wikia.preview', [
 	 * @param {object} data - data that comes from preview api
 	 */
 	function handleMobilePreview(data) {
-		var iframe = $article.html(
-				'<div class="mobile-preview"><iframe  width="320" height="480"></iframe></div>'
-			).find('iframe')[0],
-			doc = iframe.contentWindow.document;
+		var iframe = iframeWriter.getIframe({
+			code: data.html,
+			width: 320,
+			height: 480,
+			scrolling: true
+		});
 
-		doc.open();
-		doc.writeln(data.html);
-		doc.close();
+		$article.html('<div class="mobile-preview"></div>').find('div').html(iframe);
 	}
 
 	/**
@@ -135,31 +137,23 @@ define('wikia.preview', [
 	 * @param {object} data - data that comes from preview api
 	 */
 	function handleVenusPreview(data) {
-		var iframe = $article.html(
-				'<div class="venus-preview">' +
-				'<iframe  width="100%" height="100%" frameborder="0" scrolling="no"></iframe>' +
-				'</div>'
-			).find('iframe')[0],
-			doc = iframe.document;
+		var iframe = iframeWriter.getIframe({
+			code: data.html,
+			width: '100%',
+			height: '100%',
+			scrolling: true
+		});
 
-		if (iframe.contentDocument) {
-			doc = iframe.contentDocument;
-		} else if (iframe.contentWindow) {
-			doc = iframe.contentWindow.document;
-		}
-
-		doc.open();
-		doc.writeln(data.html);
-		doc.close();
+		$article.html('<div class="venus-preview"></div>').find('div').html(iframe);
 
 		// set iframe height to mach its content
 		$(iframe).one('load', function () {
-			var iframeBody = doc.body;
+			var iframeBody = iframe.contentWindow.document.body;
 
 			iframe.style.height = iframeBody.scrollHeight + 'px';
 
 			// prevent any click on links and images from opening within the preview iframe (CON-2240)
-			$(iframeBody).on('click', 'a', function(ev) {
+			$(iframeBody).on('click', 'a', function (ev) {
 				var target = $(ev.target);
 
 				// links to other pages should be open in new windows
@@ -194,7 +188,7 @@ define('wikia.preview', [
 			$previewTypeDropdown.attr('disabled', false);
 			$article.parent().stopThrobbing();
 
-			if (type === previewTypes.mobile.name) {
+			if (type === previewTypes.mobile.name || type === previewTypes.mercury.name) {
 				handleMobilePreview(data);
 			} else if (type === previewTypes.venus.name) {
 				handleVenusPreview(data);
@@ -277,6 +271,13 @@ define('wikia.preview', [
 			params.options.push({
 				value: previewTypes.venus.name,
 				name: $.htmlentities(msg('wikia-editor-preview-venus'))
+			});
+		}
+
+		if (window.wgEnableMercuryPreview) {
+			params.options.push({
+				value: previewTypes.mercury.name,
+				name: $.htmlentities(msg('wikia-editor-preview-mercury'))
 			});
 		}
 
@@ -507,6 +508,11 @@ define('wikia.preview', [
 				max: {
 					name: 'max',
 					value: articleMaxWidth - 2 * articleMargin
+				},
+				mercury: {
+					name: 'mercury',
+					skin: 'mercury',
+					value: null
 				},
 				mobile: {
 					name: 'mobile',
